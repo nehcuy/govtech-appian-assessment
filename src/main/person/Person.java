@@ -43,7 +43,7 @@ public class Person {
      */
     @Override
     public int hashCode() {
-        return this.id;
+        return this.name.hashCode();
     }
 
     /**
@@ -58,7 +58,7 @@ public class Person {
             return false;
         }
         Person other = (Person) obj;
-        return this.id == other.id;
+        return this.name.equals(other.name);
     }
 
     /**

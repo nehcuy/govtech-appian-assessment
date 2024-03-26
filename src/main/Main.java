@@ -7,8 +7,13 @@ import main.transaction.Transaction;
 
 import java.util.List;
 
+/**
+ * Main class that runs the program.
+ * Parses the input, calculates the transactions and prints the output.
+ * @author Huang Yuchen
+ * @author hyuchen@u.nus.edu
+ */
 public class Main {
-
     public static void main(String[] args) {
         Database db = new Parser().readInput();
         Calculator calculator = new Calculator(db);

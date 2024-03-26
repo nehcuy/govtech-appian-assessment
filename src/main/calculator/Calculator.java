@@ -7,16 +7,32 @@ import main.transaction.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a calculator object that does the main calculations for the program
+ * given a Database object.
+ * @author Huang Yuchen
+ * @author hyuchen@u.nus.edu
+ */
 public class Calculator {
     private final int numberOfPeople;
     private final Database db;
     private static final double EPSILON = 0.01;
 
+    /**
+     * Constructor for Calculator class.
+     *
+     * @param db The Database object that contains the relevant mappings.
+     */
     public Calculator(Database db) {
         this.numberOfPeople = db.getIdCount();
         this.db = db;
     }
 
+    /**
+     * Calculates the transactions needed to settle the debts.
+     *
+     * @return the list of transactions needed to settle the debts
+     */
     public List<Transaction> calculateTransactions() {
         double sum = 0;
         double[] finalisedExpenditures = db.getExpenditureMap().stream().mapToDouble(Double::doubleValue).toArray();
@@ -32,6 +48,12 @@ public class Calculator {
         return output;
     }
 
+    /**
+     * Recursive helper function to calculate the transactions needed to settle the debts.
+     *
+     * @param amount The array of amounts of money that each person owes or is owed.
+     * @param output The list of transactions that will be returned as the final output.
+     */
     private void calculateTransactionsRecursive(double[] amount, List<Transaction> output) {
         int maxReceiveIdx = 0;
         int maxPaymentIdx = 0;

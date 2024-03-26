@@ -19,6 +19,9 @@ public class Database {
     private int idCount;
     private final List<Double> idToExpenditureMap;
 
+    /**
+     * Constructor for Database class. Initialises the mappings.
+     */
     public Database() {
         this.idToPersonMap = new HashMap<>();
         this.personToIdMap = new HashMap<>();
@@ -26,6 +29,12 @@ public class Database {
         this.idToExpenditureMap = new ArrayList<>();
     }
 
+    /**
+     * Adds a new entry to the database.
+     *
+     * @param name The name of the person.
+     * @param expenditure The amount of money spent by the person.
+     */
     public void addEntry(String name, double expenditure) {
         Person newPerson = new Person(idCount, name);
         if (personToIdMap.containsKey(newPerson)) {
@@ -39,14 +48,31 @@ public class Database {
         idCount++;
     }
 
+    /**
+     * Getter for the person object mapped to the index.
+     *
+     * @param id The index of the person.
+     * @return the person object mapped to the index.
+     */
     public Person getPerson(int id) {
         return idToPersonMap.get(id);
     }
 
+    /**
+     * Getter for the current index count of the database.
+     *
+     * @return the current index count of the database.
+     */
     public int getIdCount() {
         return this.idCount;
     }
 
+    /**
+     * Getter for a list version of the database.
+     * The list is ordered by the index of the person.
+     *
+     * @return the list version of the database.
+     */
     public List<Double> getExpenditureMap() {
         return this.idToExpenditureMap;
     }

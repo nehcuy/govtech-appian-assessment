@@ -5,14 +5,23 @@ import main.database.Database;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class Parser {
-    BufferedReader br;
+    private final BufferedReader br;
+
+    /**
+     * Constructor for Parser class.
+     * Initialises the BufferedReader object.
+     */
     public Parser() {
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Reads the input from the user and returns a Database object.
+     *
+     * @return the Database object containing the expenditures of everyone
+     */
     public Database readInput() {
         Database db = new Database();
         try {

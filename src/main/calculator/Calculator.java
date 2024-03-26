@@ -5,6 +5,7 @@ import main.person.Person;
 import main.transaction.Transaction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Calculator {
@@ -32,6 +33,8 @@ public class Calculator {
     }
 
     private void calculateTransactionsRecursive(double[] amount, List<Transaction> output) {
+        System.out.println(Arrays.toString(amount));
+
         int maxReceiveIdx = 0, maxPaymentIdx = 0;
         for (int i = 1; i < numberOfPeople; ++i) {
             if (amount[i] < amount[maxPaymentIdx]) {
@@ -42,7 +45,7 @@ public class Calculator {
             }
         }
 
-        if (amount[maxReceiveIdx] == 0 && amount[maxPaymentIdx] == 0)
+        if (amount[maxReceiveIdx] < 0.01 && amount[maxPaymentIdx] < 0.01)
             return;
 
         double min = Math.min(-amount[maxPaymentIdx], amount[maxReceiveIdx]);

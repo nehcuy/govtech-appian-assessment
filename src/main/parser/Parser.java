@@ -2,36 +2,32 @@ package main.parser;
 
 import main.database.Database;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Parser {
-    private final Scanner sc;
-    public Parser(Scanner sc) {
-        this.sc = sc;
+    BufferedReader br;
+    public Parser() {
+        this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
     public Database readInput() {
         Database db = new Database();
-        System.out.println("Enter 'exit' to finalise the calculations.");
-        while (true) {
-            // Prompt for name
-            System.out.print("Enter name: ");
-            String name = sc.next();
-
-            // Check for "exit" to terminate the loop
-            if (name.equalsIgnoreCase("exit")) {
-                break;
+        try {
+            String row = br.readLine();
+            while (!row.isEmpty()) {
+                String[] entry = row.split(",");
+                String name = entry[0];
+                double amount = Double.parseDouble(entry[1]);
+                db.addEntry(name, amount);
+                row = br.readLine();
             }
-
-            // Prompt for amount
-            System.out.print("Enter amount spent by " + name + ": ");
-            while (!sc.hasNextDouble()) {
-                System.out.println("Invalid amount. Please enter a number.");
-                sc.next();
-            }
-            double amount = sc.nextDouble();
-            db.addEntry(name, amount);
+            br.close();
+            return db;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return db;
     }
 }

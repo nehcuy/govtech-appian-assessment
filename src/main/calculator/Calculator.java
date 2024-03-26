@@ -5,12 +5,12 @@ import main.person.Person;
 import main.transaction.Transaction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Calculator {
     private final int numberOfPeople;
     private final Database db;
+    private static final double EPSILON = 0.01;
 
     public Calculator(Database db) {
         this.numberOfPeople = db.getIdCount();
@@ -33,9 +33,8 @@ public class Calculator {
     }
 
     private void calculateTransactionsRecursive(double[] amount, List<Transaction> output) {
-        System.out.println(Arrays.toString(amount));
-
-        int maxReceiveIdx = 0, maxPaymentIdx = 0;
+        int maxReceiveIdx = 0;
+        int maxPaymentIdx = 0;
         for (int i = 1; i < numberOfPeople; ++i) {
             if (amount[i] < amount[maxPaymentIdx]) {
                 maxPaymentIdx = i;
@@ -45,8 +44,9 @@ public class Calculator {
             }
         }
 
-        if (amount[maxReceiveIdx] < 0.01 && amount[maxPaymentIdx] < 0.01)
+        if (amount[maxReceiveIdx] < EPSILON && amount[maxPaymentIdx] < EPSILON) {
             return;
+        }
 
         double min = Math.min(-amount[maxPaymentIdx], amount[maxReceiveIdx]);
         amount[maxReceiveIdx] -= min;
